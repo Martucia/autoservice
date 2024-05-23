@@ -17,37 +17,27 @@ export class AuthService {
   ) {}
 
   async signUp(signUpBodyDto: SignUpBodyDto) {
-    const isEmailExist = await this.userService.findByEmail(
-      signUpBodyDto.email,
-    );
-    const isPhoneExist = await this.userService.findByPhone(
-      signUpBodyDto.phone,
-    );
+    const { email, password, name, phone } = signUpBodyDto;
+    const user = await this.userService.findByEmail(email);
 
-    if (isEmailExist) {
+    if (user?.isAuth) {
       throw new BadRequestException({ type: 'email-exists' });
     }
 
-    if (isPhoneExist) {
-      throw new BadRequestException({ type: 'phone-exists' });
-    }
-
     const salt = this.passwordService.getSalt();
-    const hash = this.passwordService.getHash(signUpBodyDto.password, salt);
+    const hash = this.passwordService.getHash(password, salt);
 
-    const newUser = await this.userService.create({
-      name: signUpBodyDto.name,
-      phone: signUpBodyDto.phone,
-      email: signUpBodyDto.email,
-      hash,
-      salt,
-    });
+    const userData = user
+      ? await this.userService.update(user._id, { isAuth: true, salt, hash })
+      : await this.userService.create({ name, phone, email, hash, salt });
+
+    const { _id, isAdmin } = userData;
 
     const accessToken = await this.jwtService.signAsync({
-      id: newUser._id,
-      name: newUser.name,
-      email: newUser.email,
-      isAdmin: newUser.isAdmin,
+      id: _id,
+      name,
+      email,
+      isAdmin,
     });
 
     return { accessToken };

@@ -26,6 +26,18 @@ export class UserService {
     return user;
   }
 
+  async update(id: string, updateUserDto: UpdateUserDto): Promise<User> {
+    const user = await this.userModel.findById(id);
+
+    if (!user) {
+      throw new BadRequestException({ type: 'user-not-exists' });
+    }
+
+    const updatedUser = await user.updateOne(updateUserDto);
+
+    return updatedUser;
+  }
+
   async createNotAuth(createUserDto: CreateNotAuthUserDto): Promise<User> {
     const formatedPhone = formatPhone(createUserDto.phone);
 
@@ -59,10 +71,6 @@ export class UserService {
 
   findByPhone(phone: string) {
     return this.userModel.findOne({ phone });
-  }
-
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
   }
 
   remove(id: number) {

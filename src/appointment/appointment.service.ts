@@ -69,8 +69,4 @@ export class AppointmentService {
 
     return appointment;
   }
-
-  remove(id: number) {
-    return `This action removes a #${id} appointment`;
-  }
 }

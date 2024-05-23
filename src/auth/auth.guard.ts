@@ -12,7 +12,7 @@ import { JwtService } from '@nestjs/jwt';
 export class AuthGuard implements CanActivate {
   constructor(private jwtService: JwtService) {}
 
-  canActivate(context: ExecutionContext) {
+  async canActivate(context: ExecutionContext) {
     const req = context.switchToHttp().getRequest() as Request;
     const token = req.cookies[CookieService.tokenKey];
 
@@ -21,8 +21,9 @@ export class AuthGuard implements CanActivate {
     }
 
     try {
-      const sessionInfo = this.jwtService.verifyAsync(token, { secret: process.env.JWT_SECRET });
-
+      const sessionInfo = await this.jwtService.verifyAsync(token, {
+        secret: process.env.JWT_SECRET,
+      });
       req['session'] = sessionInfo;
     } catch {
       throw new UnauthorizedException();

@@ -5,6 +5,11 @@ import { Review } from './entities/review.entity';
 import { Model } from 'mongoose';
 import { UserService } from 'src/user/user.service';
 import { ResponseType, StatusEnum } from 'src/common/types';
+import {
+  PaginationQueryDto,
+  PaginationResultDto,
+} from 'src/common/dto/pagination.dto';
+import { PaginationStrategy } from 'src/common/strategies/pagination.strategy';
 
 @Injectable()
 export class ReviewService {
@@ -12,6 +17,7 @@ export class ReviewService {
     @InjectModel(Review.name)
     private readonly reviewModel: Model<Review>,
     private readonly userService: UserService,
+    private readonly paginationStrategy: PaginationStrategy,
   ) {}
   async create(createReviewDto: CreateReviewDto): Promise<ResponseType> {
     const user = await this.userService.findOne(createReviewDto.user);
@@ -27,5 +33,17 @@ export class ReviewService {
       message: 'Відгук успішно відправлений',
       status: StatusEnum.Success,
     };
+  }
+
+  async findAll(
+    paginationQueryDto: PaginationQueryDto,
+  ): Promise<PaginationResultDto<Review>> {
+    return this.paginationStrategy.paginate(
+      this.reviewModel,
+      paginationQueryDto.page,
+      paginationQueryDto.limit,
+      {},
+      'user',
+    );
   }
 }
