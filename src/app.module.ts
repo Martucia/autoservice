@@ -27,7 +27,7 @@ import { join } from 'path';
     AuthModule,
     ReviewModule,
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '../../client', './dist'),
+      rootPath: join(__dirname, '../', './client_dist'),
     }),
   ],
   controllers: [AppController],

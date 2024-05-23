@@ -6,6 +6,6 @@ import * as path from 'path';
 export class AppController {
   @Get()
   getHomePage(@Res() res: Response): void {
-    res.sendFile(path.join(__dirname, '../../client/dist', 'index.html'));
+    res.sendFile(path.join(__dirname, '../client_dist', 'index.html'));
   }
 }
