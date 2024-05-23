@@ -8,6 +8,7 @@ interface UiTextFieldProps {
   type?: FieldAttributes<any>;
   label?: string;
   disabled?: boolean;
+  autoComplete?: boolean;
 }
 
 const UiTextField = ({
@@ -16,6 +17,7 @@ const UiTextField = ({
   type = "text",
   label,
   disabled = false,
+  autoComplete = false,
 }: UiTextFieldProps) => {
   const phoneMask = "+380(99)999-99-99";
 
@@ -42,7 +44,7 @@ const UiTextField = ({
               placeholder={placeholder}
               type={type}
               disabled={disabled}
-              autoComplete="off"
+              autoComplete={autoComplete ? "on" : "off"}
               {...field}
             />
             {meta.touched && meta.error && (

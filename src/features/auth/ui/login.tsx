@@ -23,7 +23,11 @@ const Login = () => {
         >
           {() => (
             <Form className="flex flex-col py-4 gap-4">
-              <UiTextField id="email" placeholder="Адреса електронної пошти" />
+              <UiTextField
+                autoComplete={true}
+                id="email"
+                placeholder="Адреса електронної пошти"
+              />
               <UiPasswordField id="password" placeholder="Пароль" />
 
               <UiButton

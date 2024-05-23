@@ -6,9 +6,9 @@ import "typeface-roboto";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ModalsProvider } from "./context/modalsContext.tsx";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import Admin from "./pages/Admin.tsx";
 import AppointmentList from "./features/appointment/ui/appointment-list.tsx";
 import ReviewList from "./features/review/ui/review-list.tsx";
+import AdminRoute from "./components/AdminRoute.tsx";
 
 const queryClient = new QueryClient();
 
@@ -18,8 +18,8 @@ const router = createBrowserRouter([
     element: <App />,
   },
   {
-    path: "/admin/",
-    element: <Admin />,
+    path: "/admin",
+    element: <AdminRoute />,
     children: [
       {
         path: "appointments",
