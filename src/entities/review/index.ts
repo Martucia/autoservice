@@ -1,3 +1,3 @@
-import { useAddReviewMutation } from "./queries";
+import { useAddReviewMutation, useReviewListQuery } from "./queries";
 
-export { useAddReviewMutation };
+export { useAddReviewMutation, useReviewListQuery };

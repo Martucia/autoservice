@@ -1,3 +1,3 @@
-import { useAddAppointmentMutation } from "./queries";
+import { useAddAppointmentMutation, useAppointmentListQuery } from "./queries";
 
-export { useAddAppointmentMutation };
+export { useAddAppointmentMutation, useAppointmentListQuery };

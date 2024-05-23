@@ -24,7 +24,9 @@ export function useAppointmentListQuery(page: number = 1) {
   return useQuery<PaginationResultDto<Appointment>, Error>({
     queryKey: [queryKey, page],
     queryFn: async () => {
-      const response = await axios.get(`${URL}?page=${page}&limit=${limit}`);
+      const response = await axios.get(`${URL}?page=${page}&limit=${limit}`, {
+        withCredentials: true,
+      });
 
       return response.data;
     },

@@ -50,6 +50,13 @@ export type Appointment = {
   createdAt: Date;
 };
 
+export type Review = {
+  _id: string;
+  user: User;
+  text: string;
+  createdAt: Date;
+};
+
 export type PaginationResultDto<T> = {
   data: T[];
   page: number;

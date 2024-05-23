@@ -8,6 +8,7 @@ import { ModalsProvider } from "./context/modalsContext.tsx";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Admin from "./pages/Admin.tsx";
 import AppointmentList from "./features/appointment/ui/appointment-list.tsx";
+import ReviewList from "./features/review/ui/review-list.tsx";
 
 const queryClient = new QueryClient();
 
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
       {
         path: "appointments",
         element: <AppointmentList />,
+      },
+      {
+        path: "reviews",
+        element: <ReviewList />,
       },
     ],
   },

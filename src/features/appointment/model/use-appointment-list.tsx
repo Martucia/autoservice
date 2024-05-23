@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { useAppointmentListQuery } from "../../../entities/appointment/queries";
 import { formatDate } from "../../../utils/functions";
 import { NavLink } from "react-router-dom";
 import PhoneIcon from "../../../shared/icons/phone-icon";
+import { useAppointmentListQuery } from "../../../entities/appointment";
 
 export default function useAppointmentList() {
   const [page, setPage] = useState<number>(1);
