@@ -1,8 +1,8 @@
 import { Form, Formik } from "formik";
 import { ReviewSchema } from "../../../shared/constants/form-schemas";
-import useCreateReview from "../model/use-create-review";
 import UiTextArea from "../../../shared/ui/ui-text-area";
 import UiButton from "../../../shared/ui/ui-button";
+import useCreateReview from "../model/use-create-review";
 
 const CreateReview = () => {
   const { onSubmit } = useCreateReview();

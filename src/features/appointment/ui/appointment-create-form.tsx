@@ -1,5 +1,5 @@
 import { Form, Formik } from "formik"; // FormikProps
-import useAppointmentCreateForm from "../model/use-appointment-create-form";
+import useAppointmentCreateForm from "../model/use-appointment-create-form.ts";
 import UiTextField from "../../../shared/ui/ui-text-field";
 import UiButton from "../../../shared/ui/ui-button";
 import UiTextArea from "../../../shared/ui/ui-text-area";

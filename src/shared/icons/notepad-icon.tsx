@@ -9,8 +9,8 @@ const NotepadIcon = () => {
       <g
         fill="none"
         stroke="currentColor"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       >
         <path d="M4 3.5v-3m3 3v-3m3 3v-3"></path>
         <rect width="13" height="11.5" x=".5" y="2" rx="1"></rect>

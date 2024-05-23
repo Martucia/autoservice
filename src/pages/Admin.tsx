@@ -6,7 +6,7 @@ const Admin = () => {
     <div className="grid grid-cols-[300px,1fr] h-screen">
       <NavBar />
       <main className="bg-lightGray w-full h-full p-10">
-        <div className="bg-white rounded-md p-6">
+        <div className="">
           <Outlet />
         </div>
       </main>
