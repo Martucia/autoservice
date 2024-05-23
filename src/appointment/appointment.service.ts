@@ -7,6 +7,11 @@ import { ResponseType, StatusEnum } from 'src/common/types';
 import { UserService } from 'src/user/user.service';
 import { Document } from 'mongoose';
 import { User } from 'src/user/entities/user.entity';
+import {
+  PaginationQueryDto,
+  PaginationResultDto,
+} from 'src/common/dto/pagination.dto';
+import { PaginationStrategy } from 'src/common/strategies/pagination.strategy';
 
 @Injectable()
 export class AppointmentService {
@@ -14,6 +19,7 @@ export class AppointmentService {
     @InjectModel(Appointment.name)
     private readonly appointmentModel: Model<Appointment>,
     private readonly userService: UserService,
+    private readonly paginationStrategy: PaginationStrategy,
   ) {}
 
   async create(
@@ -23,7 +29,7 @@ export class AppointmentService {
       | (Document<unknown, {}, User> & User & { _id: Types.ObjectId })
       | null;
 
-    user = await this.userService.findByPhone(createAppointmentDto.phone);
+    user = await this.userService.findByEmail(createAppointmentDto.email);
 
     if (!user) {
       user = (await this.userService.createNotAuth({
@@ -46,10 +52,16 @@ export class AppointmentService {
     };
   }
 
-  async findAll() {
-    const appointments = await this.appointmentModel.find();
-
-    return appointments;
+  async findAll(
+    paginationQueryDto: PaginationQueryDto,
+  ): Promise<PaginationResultDto<Appointment>> {
+    return this.paginationStrategy.paginate(
+      this.appointmentModel,
+      paginationQueryDto.page,
+      paginationQueryDto.limit,
+      {},
+      'user',
+    );
   }
 
   async findOne(id: string) {
