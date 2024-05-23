@@ -1,12 +1,13 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { AppointmentModule } from './appointment/appointment.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { ReviewModule } from './review/review.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 @Module({
   imports: [
@@ -25,8 +26,10 @@ import { ReviewModule } from './review/review.module';
     UserModule,
     AuthModule,
     ReviewModule,
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '../../client', './dist'),
+    }),
   ],
   controllers: [AppController],
-  providers: [AppService],
 })
 export class AppModule {}
