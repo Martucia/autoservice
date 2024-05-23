@@ -17,8 +17,8 @@ import { ReviewModule } from './review/review.module';
     }),
     MongooseModule.forRootAsync({
       imports: [ConfigModule],
-      useFactory: async (configService: ConfigService) => ({
-        uri: configService.get<string>('DB_URI'),
+      useFactory: async () => ({
+        uri: process.env.DB_URI,
       }),
       inject: [ConfigService],
     }),
